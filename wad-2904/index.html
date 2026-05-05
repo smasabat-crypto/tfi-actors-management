@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tollywood Stars Hub - Dynamic Celebrity Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .user-info {
+            color: white;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>🎬🎥 TOLLYWOOD MOVIE STARS📽️🎞️</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="viewSection('home')" class="nav-link">Home</a></li>
+                <li><a href="#" onclick="viewSection('gallery')" class="nav-link">Gallery</a></li>
+                <li><a href="#" onclick="viewSection('admin')" class="nav-link">Admin</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <button id="themeBtn" class="theme-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <div class="user-info">
+                    <span id="userEmail"></span>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="mainContent" class="main-content">
+        <!-- Content loads here -->
+    </main>
+
+    <script>
+        // Check if user is logged in
+        function checkLoginStatus() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Display user email
+        function displayUserInfo() {
+            const userEmail = sessionStorage.getItem('userEmail');
+            if (userEmail) {
+                document.getElementById('userEmail').textContent = '👤 ' + userEmail;
+            }
+        }
+
+        // Handle logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.removeItem('isLoggedIn');
+                sessionStorage.removeItem('userEmail');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Run checks on page load
+        window.addEventListener('load', function() {
+            checkLoginStatus();
+            displayUserInfo();
+        });
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
